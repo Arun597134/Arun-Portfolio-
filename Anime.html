@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Arun M | Portfolio</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --primary: #0077ff;
+      --bg-light: #f9f9f9;
+      --bg-dark: #1f1f1f;
+      --text-light: #333;
+      --text-dark: #fff;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: var(--bg-light);
+      color: var(--text-light);
+      transition: 0.3s;
+    }
+
+    body.dark-mode {
+      background: var(--bg-dark);
+      color: var(--text-dark);
+    }
+
+    body.dark-mode .project-card, 
+    body.dark-mode .skill-card {
+      background: #2e2e2e;
+      color: white;
+    }
+
+    body.dark-mode input,
+    body.dark-mode textarea {
+      background: #333;
+      color: #fff;
+      border: 1px solid #666;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: #1f1f1f;
+      color: #fff;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      padding: 0.5rem 0.75rem;
+      color: #fff;
+      border-bottom: 2px solid transparent;
+      text-decoration: none;
+    }
+
+    .nav-links a.active {
+      border-bottom: 2px solid var(--primary);
+    }
+
+    .toggle-mode {
+      cursor: pointer;
+      font-size: 1.2rem;
+    }
+
+    section {
+      padding: 6rem 2rem;
+      min-height: 100vh;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.6s ease-out;
+    }
+
+    section.reveal {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    h2.section-title {
+      font-size: 2.5rem;
+      text-align: center;
+      margin-bottom: 3rem;
+      color: var(--primary);
+    }
+
+    .hero {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .hero-left {
+      flex: 1;
+      max-width: 600px;
+    }
+
+    .hero-right img {
+      width: 100%;
+      max-width: 400px;
+      border-radius: 1rem;
+    }
+
+    .buttons .btn {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      margin-right: 1rem;
+      margin-top: 1rem;
+      border-radius: 5px;
+      font-weight: 600;
+      transition: 0.3s;
+      text-decoration: none;
+    }
+
+    .btn.primary {
+      background: var(--primary);
+      color: white;
+    }
+
+    .btn.outline {
+      border: 2px solid var(--primary);
+      color: var(--primary);
+    }
+
+    .skills-grid, .projects-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      justify-content: center;
+      margin-top: 2rem;
+    }
+
+    .skill-card {
+      background: #fff;
+      border-radius: 10px;
+      padding: 1rem;
+      width: 180px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    .skill-card p {
+      background: #ddd;
+      height: 8px;
+      border-radius: 5px;
+      overflow: hidden;
+      margin-top: 8px;
+    }
+
+    .skill-bar {
+      display: block;
+      height: 8px;
+      background: var(--primary);
+      width: 0;
+      transition: width 2s ease-in-out;
+    }
+
+    .skill-bar.filled {
+      width: var(--percent);
+    }
+
+    .percent-label {
+      margin-top: 5px;
+      font-weight: bold;
+      font-size: 0.9rem;
+      color: var(--primary);
+    }
+
+    .project-card {
+      background: #fff;
+      border-radius: 10px;
+      padding: 1rem;
+      width: 280px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    .project-title {
+      font-size: 1.4rem;
+      color: var(--primary);
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+
+    .footer {
+      background: #1f1f1f;
+      color: #fff;
+      text-align: center;
+      padding: 2rem 1rem;
+    }
+    .btn-contact {
+  display: inline-block;
+  padding: 0.85rem 2rem;
+  background: linear-gradient(135deg, #0077ff, #00c6ff);
+  color: white;
+  font-weight: 600;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 50px;
+  box-shadow: 0 8px 24px rgba(0, 119, 255, 0.3);
+  transition: all 0.3s ease-in-out;
+  text-decoration: none;
+}
+.btn-contact:hover {
+  background: linear-gradient(135deg, #00c6ff, #0077ff);
+  box-shadow: 0 10px 28px rgba(0, 119, 255, 0.5);
+  transform: scale(1.05);
+}
+
+    .social-icons a {
+      margin: 0 0.5rem;
+      color: #fff;
+      font-size: 1.2rem;
+    }
+
+    #particles-js {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+  </style>
+</head>
+<body>
+  <div id="particles-js"></div>
+
+  <nav class="navbar">
+    <div class="logo">ARUN.M</div>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="#home" class="active">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#certifications">Certifications</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="toggle-mode" id="toggleMode"><i class="fas fa-moon"></i></div>
+  </nav>
+
+  <section class="hero" id="home">
+    <div class="hero-left">
+      <h1>Hi, I'm <span style="color:var(--primary);">Arun M</span></h1>
+      <p>AI | Web Dev | Blockchain</p>
+      <div class="buttons">
+        <a href="https://linkedin.com/in/arun-vijay-5a2845317" class="btn primary" target="_blank">Hire Me</a>
+        <a href="Arun_Resume.pdf" class="btn outline" download>Download CV</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <img src="main-img.jpg" alt="Arun M" />
+    </div>
+  </section>
+
+  <section id="about">
+    <h2 class="section-title">About Me</h2>
+    <p style="max-width: 700px; margin: auto;">I’m Arun M, a 2nd year AI student with strong interest in web technologies, AI tools, and blockchain systems. Certified in Java and Cryptography with hands-on project experience.</p>
+  </section>
+
+  <section id="skills">
+    <h2 class="section-title">Skills</h2>
+    <div class="skills-grid">
+      <div class="skill-card"><strong>HTML</strong><p><span class="skill-bar" style="--percent:95%;"></span></p><div class="percent-label">95%</div></div>
+      <div class="skill-card"><strong>CSS</strong><p><span class="skill-bar" style="--percent:90%;"></span></p><div class="percent-label">90%</div></div>
+      <div class="skill-card"><strong>JavaScript</strong><p><span class="skill-bar" style="--percent:85%;"></span></p><div class="percent-label">85%</div></div>
+      <div class="skill-card"><strong>React</strong><p><span class="skill-bar" style="--percent:80%;"></span></p><div class="percent-label">80%</div></div>
+      <div class="skill-card"><strong>Python</strong><p><span class="skill-bar" style="--percent:88%;"></span></p><div class="percent-label">88%</div></div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <h2 class="section-title">Projects</h2>
+    <div class="projects-grid">
+      <div class="project-card">
+        <h3 class="project-title">🚀 BitVault</h3>
+        <p>Crypto trading frontend with intuitive UI for decentralized exchanges.</p>
+      </div>
+      <div class="project-card">
+        <h3 class="project-title">💬 SJIT Chatbot</h3>
+        <p>Interactive college assistant chatbot for form submissions and college FAQs.</p>
+      </div>
+      <div class="project-card">
+        <h3 class="project-title">🤖 AI Mock Interview</h3>
+        <p>Smart AI interviewer that simulates real interview questions and feedback using Python + LLMs.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="certifications">
+    <h2 class="section-title">Certifications</h2>
+    <div class="projects-grid">
+      <div class="project-card">
+        <h3 class="project-title">Java Programming intern</h3>
+        <p>Certified in Java Programming Internship from Codsoft </p>
+      </div>
+      <div class="project-card">
+        <h3 class="project-title">Fundamental of Cryptography</h3>
+        <p>Certified in Cryptography from Infosys Springboard</p>
+      </div>
+        <div class="project-card">
+        <h3 class="project-title">Software Development</h3>
+        <p>Certified in Software Development from Prodigy Infotech</p>
+      </div>
+       <div class="project-card">
+        <h3 class="project-title">Front End Web Developer</h3>
+        <p>Certified in Front End Web Developer from Infosys Springboard</p>
+      </div>
+        <div class="project-card">
+        <h3 class="project-title"> Web Development Intern</h3>
+        <p>Certified in  Web Developement from Codtech</p>
+      </div>
+       <div class="project-card">
+        <h3 class="project-title"> Basis of MongoDB</h3>
+        <p>Certified in Basis Of MangoDB from MongoDB University</p>
+      </div>
+      <div class="project-card">
+        <h3 class="project-title"> Bitcoin For Developers 1</h3>
+        <p>Certified in Bitcoin For Developers from Saylor.org Academy</p>
+      </div>
+       <div class="project-card">
+        <h3 class="project-title"> Sorting And Searching In Scala</h3>
+        <p>Certified in Sorting And Searching in Scala from Infosys Springboard</p>
+      </div>
+      <div class="project-card">
+        <h3 class="project-title"> Introduction To Artificial Intelligence </h3>
+        <p>Certified in Introduction To Artificial Intelligence  from Simplilearn </p>
+      </div>
+    </div>
+  </section>
+
+<section id="contact">
+  <h2 class="section-title">Contact Me</h2>
+  <div style="text-align:center;">
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLScv3LF6PaU1Uz7kvJ4H0CmKYxuC5-UAOU6plk9_eWh9jlQVKw/viewform?usp=dialog" target="_blank" class="btn-contact">Fill Up Form</a>
+  </div>
+</section>
+
+  <footer class="footer">
+    <h3>ARUN.M</h3>
+    <p>© 2025 Arun M. All rights reserved.</p>
+    <div class="social-icons">
+      <a href="#"><i class="fab fa-github"></i></a>
+      <a href="#"><i class="fab fa-linkedin"></i></a>
+      <a href="#"><i class="fab fa-instagram"></i></a>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <script>
+    particlesJS("particles-js", {
+      particles: {
+        number: { value: 60 },
+        color: { value: "#0077ff" },
+        shape: { type: "circle" },
+        opacity: { value: 0.6 },
+        size: { value: 3 },
+        line_linked: { enable: true, color: "#0077ff", opacity: 0.4 },
+        move: { enable: true, speed: 2 }
+      }
+    });
+
+    // Reveal on scroll
+    function revealSections() {
+      const sections = document.querySelectorAll("section");
+      const skillBars = document.querySelectorAll(".skill-bar");
+      sections.forEach(section => {
+        const triggerBottom = window.innerHeight * 0.85;
+        const sectionTop = section.getBoundingClientRect().top;
+        if (sectionTop < triggerBottom) {
+          section.classList.add("reveal");
+          if (section.id === "skills") {
+            skillBars.forEach(bar => bar.classList.add("filled"));
+          }
+        }
+      });
+    }
+
+    window.addEventListener("scroll", revealSections);
+    window.addEventListener("load", revealSections);
+
+    // Toggle dark mode
+    const toggleBtn = document.getElementById("toggleMode");
+    toggleBtn.onclick = () => {
+      document.body.classList.toggle("dark-mode");
+      toggleBtn.innerHTML = document.body.classList.contains("dark-mode")
+        ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+    };
+
+    // Active nav highlight
+    const links = document.querySelectorAll(".nav-links a");
+    window.addEventListener("scroll", () => {
+      let current = "";
+      document.querySelectorAll("section").forEach(sec => {
+        const sectionTop = sec.offsetTop - 100;
+        if (scrollY >= sectionTop) {
+          current = sec.getAttribute("id");
+        }
+      });
+      links.forEach(link => {
+        link.classList.remove("active");
+        if (link.getAttribute("href") === `#${current}`) {
+          link.classList.add("active");
+        }
+      });
+    });
+  </script>
+</body>
+</html>
